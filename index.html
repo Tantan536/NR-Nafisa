@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inventory Login System</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <div class="form-box" id="login-box">
+      <h2>🔐 Login</h2>
+      <input type="email" id="login-email" placeholder="📧 Email" required>
+      <input type="password" id="login-password" placeholder="🔑 Password" required>
+      <button onclick="login()">Login</button>
+      <p><a href="#" onclick="showSection('forgot-box')">Forgot Password?</a></p>
+      <p>Don't have an account? <a href="#" onclick="showSection('register-box')">Register</a></p>
+    </div>
+
+    <div class="form-box" id="register-box" style="display:none;">
+      <h2>📝 Register</h2>
+      <input type="text" id="reg-name" placeholder="👤 Full Name" required>
+      <input type="email" id="reg-email" placeholder="📧 Email" required>
+      <input type="password" id="reg-password" placeholder="🔑 Password" required>
+      <button onclick="register()">Register</button>
+      <p>Already have an account? <a href="#" onclick="showSection('login-box')">Login</a></p>
+    </div>
+
+    <div class="form-box" id="forgot-box" style="display:none;">
+      <h2>🔁 Forgot Password</h2>
+      <input type="email" id="forgot-email" placeholder="📧 Registered Email" required>
+      <button onclick="forgotPassword()">Recover</button>
+      <p><a href="#" onclick="showSection('login-box')">Back to Login</a></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inventory Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <header>
+    <h1>📊 Dashboard - NR Nafisa Wholesale</h1>
+    <p id="datetime"></p>
+  </header>
+
+  <section class="dashboard">
+    <div class="card" id="card1">
+      <h3>Total Products</h3>
+      <p class="value" data-value="450">0</p>
+    </div>
+
+    <div class="card" id="card2">
+      <h3>Total Purchase</h3>
+      <p class="value" data-value="120000">₹0</p>
+    </div>
+
+    <div class="card" id="card3">
+      <h3>Total Sales</h3>
+      <p class="value" data-value="165000">₹0</p>
+    </div>
+
+    <div class="card" id="card4">
+      <h3>Profit</h3>
+      <p class="value" data-value="45000">₹0</p>
+    </div>
+
+    <div class="card" id="card5">
+      <h3>Store Stock</h3>
+      <p class="value" data-value="310">0 Items</p>
+    </div>
+
+    <div class="card" id="card6">
+      <h3>Godown Stock</h3>
+      <p class="value" data-value="700">0 Items</p>
+    </div>
+  </section>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Purchase Module - NR Nafisa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="purchase.css" />
+</head>
+<body>
+  <header>
+    <h1>🛒 Purchase Entry</h1>
+    <p id="todayDate"></p>
+  </header>
+
+  <section class="form-section">
+    <input type="date" id="pDate" />
+    <input type="text" id="pItemCode" placeholder="Item Code" />
+    <input type="text" id="pItemName" placeholder="Item Name" />
+    <input type="text" id="pSize" placeholder="Size" />
+    <input type="text" id="pColor" placeholder="Colour" />
+    <input type="number" id="pQty" placeholder="Quantity" />
+    <input type="number" id="pPurchasePrice" placeholder="Purchase Price ₹" />
+    <input type="number" id="pSalePrice" placeholder="Sale Price ₹" />
+    <button onclick="addPurchase()">➕ Add Purchase</button>
+  </section>
+
+  <section class="summary">
+    <h2>🧾 Total Purchase Value: ₹<span id="totalPurchase">0</span></h2>
+  </section>
+
+  <section class="table-section">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Item Code</th>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Colour</th>
+          <th>Qty</th>
+          <th>Buy ₹</th>
+          <th>Sell ₹</th>
+        </tr>
+      </thead>
+      <tbody id="purchaseTableBody"></tbody>
+    </table>
+  </section>
+
+  <script src="purchase.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sales Module - NR Nafisa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="sales.css" />
+</head>
+<body>
+  <header>
+    <h1>🧾 Sales Billing - NR Nafisa</h1>
+    <p id="currentDate"></p>
+  </header>
+
+  <section class="form-section">
+    <input type="date" id="saleDate" />
+    <input type="text" id="saleCode" placeholder="Item Code" onblur="autoFillSaleData()"/>
+    <input type="text" id="saleName" placeholder="Item Name" readonly />
+    <input type="text" id="saleSize" placeholder="Size" readonly />
+    <input type="text" id="saleColor" placeholder="Color" readonly />
+    <input type="number" id="saleQty" placeholder="Quantity" />
+    <input type="number" id="salePrice" placeholder="Sale Price ₹" />
+    <button onclick="addSale()">➕ Add Sale</button>
+  </section>
+
+  <section class="summary">
+    <h2>💰 Total Sales: ₹<span id="totalSales">0</span></h2>
+  </section>
+
+  <section class="table-section">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Color</th>
+          <th>Qty</th>
+          <th>Sale ₹</th>
+          <th>Total ₹</th>
+        </tr>
+      </thead>
+      <tbody id="salesTableBody"></tbody>
+    </table>
+  </section>
+
+  <script src="sales.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inventory / Stock - NR Nafisa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="inventory.css" />
+</head>
+<body>
+  <header>
+    <h1>📦 Inventory / Stock Summary</h1>
+    <p id="dateNow"></p>
+  </header>
+
+  <section class="stock-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Item Code</th>
+          <th>Item Name</th>
+          <th>Size</th>
+          <th>Color</th>
+          <th>Purchased Qty</th>
+          <th>Sold Qty</th>
+          <th>In Stock</th>
+        </tr>
+      </thead>
+      <tbody id="inventoryBody"></tbody>
+    </table>
+  </section>
+
+  <script src="inventory.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Products - NR Nafisa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="products.css" />
+</head>
+<body>
+  <header>
+    <h1>🛍️ Product Catalog - NR Nafisa</h1>
+  </header>
+
+  <section class="form-section">
+    <input type="text" id="prodCode" placeholder="Item Code" />
+    <input type="text" id="prodName" placeholder="Item Name" />
+    <input type="text" id="prodSize" placeholder="Size" />
+    <input type="text" id="prodColor" placeholder="Colour" />
+    <input type="number" id="prodPrice" placeholder="Sale Price ₹" />
+    <button onclick="addProduct()">➕ Add Product</button>
+  </section>
+
+  <section class="table-section">
+    <table>
+      <thead>
+        <tr>
+          <th>Item Code</th>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Colour</th>
+          <th>Price ₹</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="productTableBody"></tbody>
+    </table>
+  </section>
+
+  <script src="products.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vendors / Customers - NR Nafisa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="vendors.css" />
+</head>
+<body>
+  <header>
+    <h1>👥 Vendors / Customers</h1>
+  </header>
+
+  <section class="form-section">
+    <input type="text" id="vName" placeholder="Full Name" />
+    <input type="tel" id="vMobile" placeholder="Mobile Number" maxlength="10" />
+    <input type="email" id="vEmail" placeholder="Email Address" />
+    <input type="text" id="vAddress" placeholder="Address" />
+    <button onclick="addVendor()">➕ Add</button>
+  </section>
+
+  <section class="table-section">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Mobile</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="vendorTableBody"></tbody>
+    </table>
+  </section>
+
+  <script src="vendors.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reports - NR Nafisa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="reports.css" />
+</head>
+<body>
+  <header>
+    <h1>📊 Business Reports</h1>
+    <p id="reportDate"></p>
+  </header>
+
+  <section class="report-cards">
+    <div class="card total-products">
+      <h2>🛍️ Total Products</h2>
+      <p><span id="rTotalProducts">0</span></p>
+    </div>
+
+    <div class="card total-purchase">
+      <h2>🧾 Total Purchase ₹</h2>
+      <p>₹<span id="rTotalPurchase">0</span></p>
+    </div>
+
+    <div class="card total-sales">
+      <h2>💸 Total Sales ₹</h2>
+      <p>₹<span id="rTotalSales">0</span></p>
+    </div>
+
+    <div class="card profit-loss">
+      <h2>📈 Profit / Loss ₹</h2>
+      <p>₹<span id="rProfitLoss">0</span></p>
+    </div>
+  </section>
+
+  <script src="reports.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Settings - NR Nafisa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <header>
+    <h1>⚙️ Admin Panel</h1>
+    <p id="dateNow"></p>
+  </header>
+
+  <section class="form-section">
+    <input type="tel" id="adminMobile" placeholder="Admin Mobile Number" maxlength="10" />
+    <input type="password" id="adminPass" placeholder="Password" />
+    <button onclick="addAdmin()">➕ Add Admin</button>
+  </section>
+
+  <section class="table-section">
+    <table>
+      <thead>
+        <tr>
+          <th>Mobile</th>
+          <th>Password</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="adminTableBody"></tbody>
+    </table>
+  </section>
+
+  <script src="admin.js"></script>
+</body>
+</html>
